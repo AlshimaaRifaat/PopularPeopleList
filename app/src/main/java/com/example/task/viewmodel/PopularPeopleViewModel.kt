@@ -21,7 +21,10 @@ import javax.security.auth.callback.Callback
 
 
 class PopularPeopleViewModel : ViewModel(){
-    public var popularPeopleListMutableLiveData: MutableLiveData<PopularPeopleModel>? = null
+     var popularPeopleRepository: PopularPeopleRepository= PopularPeopleRepository()
+
+
+     var popularPeopleListMutableLiveData: MutableLiveData<PopularPeopleModel>?  = MutableLiveData<PopularPeopleModel>()
     private lateinit var context: Context
 
     public var searchPeopleMutableLiveData: MutableLiveData<PopularPeopleModel>? = null
@@ -31,17 +34,17 @@ class PopularPeopleViewModel : ViewModel(){
 
     private val autoCompletePublishSubject = PublishRelay.create<String>()
     public fun getPopularPeopleList(context: Context, Api_key: String, Language:String, Page:Int)
-            : LiveData<PopularPeopleModel> {
-        popularPeopleListMutableLiveData = MutableLiveData<PopularPeopleModel>()
+            : MutableLiveData<PopularPeopleModel> {
+
         this.context = context
-        getPopularPeopleListValues(Api_key,Language,Page)
+        popularPeopleListMutableLiveData=popularPeopleRepository.getPopularPeopleListValues(Api_key,Language,Page)
 
         //  return listProductsMutableLiveData
         return popularPeopleListMutableLiveData as MutableLiveData<PopularPeopleModel>
 
     }
 
-    private fun getPopularPeopleListValues( api_key:String, language:String, page:Int) {
+   /* private fun getPopularPeopleListValues( api_key:String, language:String, page:Int) {
         compositeDisposable.add(
             APIClient.getInstance().api
                 .popularPeople_List(api_key,language,page)
@@ -49,7 +52,7 @@ class PopularPeopleViewModel : ViewModel(){
                 .subscribeOn(Schedulers.io())
                 .subscribe({response -> popularPeopleListMutableLiveData?.setValue(response)}, {t -> onFailure(t) }))
 
-        /* val call = APIClient.getInstance().api
+        *//* val call = APIClient.getInstance().api
              .popularPeople_List(api_key,language,page)
          call.enqueue(object : Callback, retrofit2.Callback<PopularPeopleModel> {
              override fun onResponse(
@@ -69,10 +72,10 @@ class PopularPeopleViewModel : ViewModel(){
                  popularPeopleListMutableLiveData?.setValue(null)
 
              }
-         })*/
+         })*//*
 
     }
-
+*/
     private fun onFailure(t: Throwable) {
 
             Toast.makeText(context,t.message, Toast.LENGTH_SHORT).show()
