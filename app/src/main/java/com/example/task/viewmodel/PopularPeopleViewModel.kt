@@ -33,10 +33,10 @@ class PopularPeopleViewModel : ViewModel(){
     val compositeDisposable = CompositeDisposable()
 
     private val autoCompletePublishSubject = PublishRelay.create<String>()
-    public fun getPopularPeopleList(context: Context, Api_key: String, Language:String, Page:Int)
+    public fun getPopularPeopleList( Api_key: String, Language:String, Page:Int)
             : MutableLiveData<PopularPeopleModel> {
 
-        this.context = context
+
         popularPeopleListMutableLiveData=popularPeopleRepository.getPopularPeopleListValues(Api_key,Language,Page)
 
         //  return listProductsMutableLiveData

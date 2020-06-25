@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity(),PopularPeopleDetailsView{
         if (isConnected) {
             progressBar_people.visibility= View.VISIBLE
             popularPeopleViewModel.getPopularPeopleList(
-                applicationContext, "889821def8006c20b36edf63a80b98fd",
+                "889821def8006c20b36edf63a80b98fd",
                 "en-US", page
             ).observe(this,
                 Observer<PopularPeopleModel> { popularPeopleModel ->
